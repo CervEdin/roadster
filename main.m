@@ -41,6 +41,15 @@ graphs.anna.y_speed = arrayfun(@(x) velocity(x, 'speed_anna'), graphs.anna.x_dis
 % Plot the graph
 subplot(2, 2, 2) ; plot(graphs.anna.x_distance, graphs.anna.y_speed, '-') ; title("Annas velocity");
 
+% Graph displaying the speed of Elsa (km/h) per displacement(km)
+% x-values: Displacement (km), linear interpolation between start and end
+%of data
+graphs.elsa.x_distance = linspace(elsa.distance_km(1), elsa.distance_km(end), interval);
+% y-values: Speed (km/h) of Elsa at a given displacement along her route
+% calculated by the velocity function
+graphs.elsa.y_speed = arrayfun(@(x) velocity(x, 'speed_elsa'), graphs.elsa.x_distance);
+% Plot the graph
+subplot(2, 2, 4) ; plot(graphs.elsa.x_distance, graphs.elsa.y_speed, '-') ; title("Elsas velocity");
 
 % Konvergensstudie: För åtminstone en av de två integralerna (1) och (2)
 % skall du nu göra en empirisk undersökning av noggrannhetsordningen för
