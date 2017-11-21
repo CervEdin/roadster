@@ -18,9 +18,14 @@ interval = 100;
 % end of speed data
 graphs.consumption.x_speed = linspace(speed_kmph(1), speed_kmph(end), interval);
 % y-values: Consumption (Wh/km), calculated by the consumption function
-graphs.consumption.y_consumption = arrayfun(@(x) consumption(x), graphs.consumption.x_speed);
+%graphs.consumption.y_consumption = arrayfun(@(x) consumption(x), graphs.consumption.x_speed);
+graphs.consumption.y_consumption = consumption(graphs.consumption.x_speed);
+% Finds local minimum, record y-value at nth x-value
+[graphs.consumption.min_y, graphs.consumption.min_x] = min(graphs.consumption.y_consumption);
+% Convert nth x-value to that corresponding x-value
+graphs.consumption.min_x = graphs.consumption.x_speed(graphs.consumption.min_x);
 % Plot the graph
-subplot(2, 2, 1) ; plot(graphs.consumption.x_speed, graphs.consumption.y_consumption, '-') ; title("Consumption per km/h");
+subplot(2, 2, 1) ; plot(graphs.consumption.x_speed, graphs.consumption.y_consumption, '-', graphs.consumption.min_x, graphs.consumption.min_y, 'x'); title("Consumption per km/h");
 
 
 
@@ -29,7 +34,7 @@ subplot(2, 2, 1) ; plot(graphs.consumption.x_speed, graphs.consumption.y_consump
 % x-values: Speed, same as consumption graph
 graphs.range.x_speed = graphs.consumption.x_speed;
 % y-values: Range of a 55 kWh battery at a given speed
-graphs.range.y_range = arrayfun(@(x) bat_cap/x, graphs.consumption.y_consumption);
+graphs.range.y_range = bat_cap * graphs.consumption.y_consumption.^(-1);
 % Plot the graph
 subplot(2, 2, 3) ; plot(graphs.range.x_speed, graphs.range.y_range, '-') ; title("Range per km/h");
 
