@@ -1,8 +1,8 @@
 function v = velocity(x, route)
 %VELOCITY  Approximate the velocity at any given time given the
-%displacement along a given route
+%distance along a given route
 %   Input:
-%       x: displacement (km)
+%       x: distance (km)
 %       route: a string for the route file 'speed_anna' or 'speed_elsa'
 
 % Check the route and load appropriate data

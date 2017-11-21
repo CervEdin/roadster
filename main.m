@@ -22,6 +22,8 @@ graphs.consumption.y_consumption = arrayfun(@(x) consumption(x), graphs.consumpt
 % Plot the graph
 subplot(2, 2, 1) ; plot(graphs.consumption.x_speed, graphs.consumption.y_consumption, '-') ; title("Consumption per km/h");
 
+
+
 % Graph displaying the range (km) of a Tesla Roadster with a battery capacity
 % of 55 kWh at a given speed
 % x-values: Speed, same as consumption graph
@@ -31,21 +33,21 @@ graphs.range.y_range = arrayfun(@(x) bat_cap/x, graphs.consumption.y_consumption
 % Plot the graph
 subplot(2, 2, 3) ; plot(graphs.range.x_speed, graphs.range.y_range, '-') ; title("Range per km/h");
 
-% Graph displaying the speed of Anna (km/h) per displacement(km)
-% x-values: Displacement (km), linear interpolation between start and end
+% Graph displaying the speed of Anna (km/h) per distance(km)
+% x-values: Distance (km), linear interpolation between start and end
 %of data
 graphs.anna.x_distance = linspace(anna.distance_km(1), anna.distance_km(end), interval);
-% y-values: Speed (km/h) of Anna at a given displacement along her route
+% y-values: Speed (km/h) of Anna at a given distance along her route
 % calculated by the velocity function
 graphs.anna.y_speed = arrayfun(@(x) velocity(x, 'speed_anna'), graphs.anna.x_distance);
 % Plot the graph
 subplot(2, 2, 2) ; plot(graphs.anna.x_distance, graphs.anna.y_speed, '-') ; title("Annas velocity");
 
-% Graph displaying the speed of Elsa (km/h) per displacement(km)
-% x-values: Displacement (km), linear interpolation between start and end
+% Graph displaying the speed of Elsa (km/h) per distance(km)
+% x-values: Distance (km), linear interpolation between start and end
 %of data
 graphs.elsa.x_distance = linspace(elsa.distance_km(1), elsa.distance_km(end), interval);
-% y-values: Speed (km/h) of Elsa at a given displacement along her route
+% y-values: Speed (km/h) of Elsa at a given distance along her route
 % calculated by the velocity function
 graphs.elsa.y_speed = arrayfun(@(x) velocity(x, 'speed_elsa'), graphs.elsa.x_distance);
 % Plot the graph
