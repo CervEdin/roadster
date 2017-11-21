@@ -8,6 +8,11 @@ function T = time_to_destination(x, route, n)
 %   Output:
 %     T: The time taken (h)
 
+distance = x;
+
+time_taken = integral(@(s) velocity(s, route).^(-1), 0, distance);
+
+T = time_taken;
 end
 
 %  Ankomsttid: 
