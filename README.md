@@ -1,1 +1,2 @@
 # roadster
+A small Matlab program to calculate the energy consumption of a Testla Roadster on a given route, taking into account variables such as speed and displacement along the route. It's obviously super cool.
