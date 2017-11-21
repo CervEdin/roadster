@@ -14,7 +14,7 @@ else
     error("Route has to be either 'speed_anna' or 'speed_elsa'")
 end
 
-assert( x >= 0 && x <= scope.distance_km(length(scope.distance_km)));
+assert( min(x) >= 0 && max(x) <= scope.distance_km(end));
 
 v = spline(scope.distance_km, scope.speed_kmph, x);
 end
