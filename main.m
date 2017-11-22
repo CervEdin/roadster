@@ -25,7 +25,7 @@ graphs.consumption.y_consumption = consumption(graphs.consumption.x_speed);
 % Convert nth x-value to that corresponding x-value
 graphs.consumption.min_x = graphs.consumption.x_speed(graphs.consumption.min_x);
 % Plot the graph
-subplot(2, 2, 1) ; plot(graphs.consumption.x_speed, graphs.consumption.y_consumption, '-', graphs.consumption.min_x, graphs.consumption.min_y, 'x'); title("Consumption per km/h");
+subplot(2, 2, 1) ; plot(graphs.consumption.x_speed, graphs.consumption.y_consumption, '-', graphs.consumption.min_x, graphs.consumption.min_y, 'x'); title('Consumption per km/h');
 
 
 
@@ -36,7 +36,7 @@ graphs.range.x_speed = graphs.consumption.x_speed;
 % y-values: Range of a 55 kWh battery at a given speed
 graphs.range.y_range = bat_cap * graphs.consumption.y_consumption.^(-1);
 % Plot the graph
-subplot(2, 2, 3) ; plot(graphs.range.x_speed, graphs.range.y_range, '-') ; title("Range per km/h");
+subplot(2, 2, 3) ; plot(graphs.range.x_speed, graphs.range.y_range, '-') ; title('Range per km/h');
 
 % Graph displaying the speed of Anna (km/h) per distance(km)
 % x-values: Distance (km), linear interpolation between start and end
@@ -46,7 +46,7 @@ graphs.anna.x_distance = linspace(anna.distance_km(1), anna.distance_km(end), in
 % calculated by the velocity function
 graphs.anna.y_speed = arrayfun(@(x) velocity(x, 'speed_anna'), graphs.anna.x_distance);
 % Plot the graph
-subplot(2, 2, 2) ; plot(graphs.anna.x_distance, graphs.anna.y_speed, '-') ; title("Annas velocity");
+subplot(2, 2, 2) ; plot(graphs.anna.x_distance, graphs.anna.y_speed, '-') ; title('Annas velocity');
 
 % Graph displaying the speed of Elsa (km/h) per distance(km)
 % x-values: Distance (km), linear interpolation between start and end
@@ -56,7 +56,7 @@ graphs.elsa.x_distance = linspace(elsa.distance_km(1), elsa.distance_km(end), in
 % calculated by the velocity function
 graphs.elsa.y_speed = arrayfun(@(x) velocity(x, 'speed_elsa'), graphs.elsa.x_distance);
 % Plot the graph
-subplot(2, 2, 4) ; plot(graphs.elsa.x_distance, graphs.elsa.y_speed, '-') ; title("Elsas velocity");
+subplot(2, 2, 4) ; plot(graphs.elsa.x_distance, graphs.elsa.y_speed, '-') ; title('Elsas velocity');
 
 % Konvergensstudie: För åtminstone en av de två integralerna (1) och (2)
 % skall du nu göra en empirisk undersökning av noggrannhetsordningen för
