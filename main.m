@@ -14,49 +14,59 @@ bat_cap = 55000;
 interval = 100;
 
 % Graph displaying consumption of electricity in Watthours per kilometer
+
 % x-values: Speed (km/h), linear interpolation from the beginning of to the
 % end of speed data
-graphs.consumption.x_speed = linspace(speed_kmph(1), speed_kmph(end), interval);
+consumption_graph.x_speed = linspace(speed_kmph(1), speed_kmph(end), interval);
 % y-values: Consumption (Wh/km), calculated by the consumption function
-%graphs.consumption.y_consumption = arrayfun(@(x) consumption(x), graphs.consumption.x_speed);
-graphs.consumption.y_consumption = consumption(graphs.consumption.x_speed);
+consumption_graph.y_consumption = consumption(consumption_graph.x_speed);
+
 % Finds local minimum, record y-value at nth x-value
-[graphs.consumption.min_y, graphs.consumption.min_x] = min(graphs.consumption.y_consumption);
+[consumption_graph.min_y, consumption_graph.min_x] = min(consumption_graph.y_consumption);
 % Convert nth x-value to that corresponding x-value
-graphs.consumption.min_x = graphs.consumption.x_speed(graphs.consumption.min_x);
+consumption_graph.min_x = consumption_graph.x_speed(consumption_graph.min_x);
+
 % Plot the graph
-subplot(2, 2, 1) ; plot(graphs.consumption.x_speed, graphs.consumption.y_consumption, '-', graphs.consumption.min_x, graphs.consumption.min_y, 'x'); title('Consumption per km/h');
-
-
+subplot(2, 2, 1) ; plot(consumption_graph.x_speed, consumption_graph.y_consumption, '-', consumption_graph.min_x, consumption_graph.min_y, 'x'); 
+title('Consumption per km/h'); xlabel('speed (km/h)'); ylabel('consumption (Wh/km)');
 
 % Graph displaying the range (km) of a Tesla Roadster with a battery capacity
 % of 55 kWh at a given speed
+
 % x-values: Speed, same as consumption graph
-graphs.range.x_speed = graphs.consumption.x_speed;
+range.x_speed = consumption_graph.x_speed;
 % y-values: Range of a 55 kWh battery at a given speed
-graphs.range.y_range = bat_cap * graphs.consumption.y_consumption.^(-1);
+range.y_range = bat_cap * consumption_graph.y_consumption.^(-1);
+
 % Plot the graph
-subplot(2, 2, 3) ; plot(graphs.range.x_speed, graphs.range.y_range, '-') ; title('Range per km/h');
+subplot(2, 2, 3) ; plot(range.x_speed, range.y_range, '-') ; 
+title('Range per km/h'); xlabel('speed (km/h)'); ylabel('range (km)');
 
 % Graph displaying the speed of Anna (km/h) per distance(km)
+
 % x-values: Distance (km), linear interpolation between start and end
 %of data
-graphs.anna.x_distance = linspace(anna.distance_km(1), anna.distance_km(end), interval);
+anna.x_distance = linspace(anna.distance_km(1), anna.distance_km(end), interval);
 % y-values: Speed (km/h) of Anna at a given distance along her route
 % calculated by the velocity function
-graphs.anna.y_speed = arrayfun(@(x) velocity(x, 'speed_anna'), graphs.anna.x_distance);
+anna.y_speed = velocity(anna.x_distance, 'speed_anna');
+
 % Plot the graph
-subplot(2, 2, 2) ; plot(graphs.anna.x_distance, graphs.anna.y_speed, '-') ; title('Annas velocity');
+subplot(2, 2, 2) ; plot(anna.x_distance, anna.y_speed, '-') ; 
+title('Annas velocity'); xlabel('distance (km)'); ylabel('speed (km/h)');
 
 % Graph displaying the speed of Elsa (km/h) per distance(km)
+
 % x-values: Distance (km), linear interpolation between start and end
 %of data
-graphs.elsa.x_distance = linspace(elsa.distance_km(1), elsa.distance_km(end), interval);
+elsa.x_distance = linspace(elsa.distance_km(1), elsa.distance_km(end), interval);
 % y-values: Speed (km/h) of Elsa at a given distance along her route
 % calculated by the velocity function
-graphs.elsa.y_speed = arrayfun(@(x) velocity(x, 'speed_elsa'), graphs.elsa.x_distance);
+elsa.y_speed = velocity(elsa.x_distance, 'speed_elsa');
+
 % Plot the graph
-subplot(2, 2, 4) ; plot(graphs.elsa.x_distance, graphs.elsa.y_speed, '-') ; title('Elsas velocity');
+subplot(2, 2, 4) ; plot(elsa.x_distance, elsa.y_speed, '-') ; 
+title('Elsas velocity');  xlabel('distance (km)'); ylabel('speed (km/h)');
 
 % Konvergensstudie: För åtminstone en av de två integralerna (1) och (2)
 % skall du nu göra en empirisk undersökning av noggrannhetsordningen för
