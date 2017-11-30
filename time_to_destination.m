@@ -8,11 +8,22 @@ function T = time_to_destination(x, route, n)
 %   Output:
 %     T: The time taken (h)
 
-distance = x;
+load(route);
 
-time_taken = integral(@(s) velocity(s, route).^(-1), 0, distance);
+t = linspace(0, x, n+1);
 
-T = time_taken;
+% I = h(1/2f(x_0)+f(x_1)+...+1/2f(x_n-1))''
+fx = velocity(t, route).^(-1);
+h = t(2) - t(1);
+weights=ones(size(t));
+weights(1)=1/2;
+weights(end)=1/2;
+
+%I = integral(@(s) velocity(s, route).^(-1), 0, x);
+%disp(I);
+
+T=h*weights*fx';
+
 end
 
 %  Ankomsttid: 
