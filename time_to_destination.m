@@ -19,8 +19,8 @@ weights=ones(size(t));
 weights(1)=1/2;
 weights(end)=1/2;
 
-%I = integral(@(s) velocity(s, route).^(-1), 0, x);
-%disp(I);
+I = integral(@(s) velocity(s, route).^(-1), 0, x);
+disp(I);
 
 T=h*weights*fx';
 

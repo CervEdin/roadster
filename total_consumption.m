@@ -8,6 +8,22 @@ function E = total_consumption(x, route, n)
 %     Output:
 %       E: Total energy consumption (Wh)
 
+load(route);
+
+t = linspace(0, x, n+1);
+
+% I = h(1/2f(x_0)+f(x_1)+...+1/2f(x_n-1))''
+fx = consumption(velocity(t, route));
+h = t(2) - t(1);
+weights=ones(size(t));
+weights(1)=1/2;
+weights(end)=1/2;
+
+I = integral(@(s) consumption(velocity(s, route)), 0, x);
+disp(I);
+
+E=h*weights*fx';
+
 end
 
 % Total elkonsumtion: Du ska nu använda båda funktionerna velocity och
