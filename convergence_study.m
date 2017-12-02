@@ -18,11 +18,15 @@ end
 h=T./n_intervals;
 
 %Error with tredjedelsregeln
-error_distance_trap=(distance_trap(2:end)-distance_trap(1:end-1))/3;
-error_distance_simpson=(distance_simpson(2:end)-distance_simpson(1:end-1))/3;
 error_total_trap=(total_trap(2:end)-total_trap(1:end-1))/3;
-error_total_simpson=(total_simpson(2:end)-total_simpson(1:end-1))/3;
-%Kapa h så den blir lika lång som error vektorn
+error_distance_trap=(distance_trap(2:end)-distance_trap(1:end-1))/3;
+
+
+%Error with femtondelsregeln
+error_total_simpson=(total_simpson(2:end)-total_simpson(1:end-1))/15;
+error_distance_simpson=(distance_simpson(2:end)-distance_simpson(1:end-1))/15;
+
+%Kapa h så den blir lika lång som error vektorerna
 h=h(2:end);
 
 subplot(2,2,1); plot(h, error_distance_trap,    'o'); xlabel('h'); ylabel('error'); title('Time to distance - Trap');

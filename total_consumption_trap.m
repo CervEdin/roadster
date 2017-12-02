@@ -20,7 +20,7 @@ weights(1)=1/2;
 weights(end)=1/2;
 
 I = integral(@(s) consumption(velocity(s, route)), 0, x);
-disp(I);
+%disp(I);
 
 E=h*weights*fx';
 
