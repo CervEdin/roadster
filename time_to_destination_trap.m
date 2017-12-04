@@ -10,14 +10,14 @@ function T = time_to_destination_trap(x, route, n)
 
 load(route);
 
-t = linspace(0, x, n+1);
+x_points = linspace(0, x, n+1);
 
 % T = h(1/2f(x_0)+f(x_1)+...+f(x_n-1)+1/2f(x_n))
 
 % Varför .^(-1) ?
-fx = velocity(t, route).^(-1);
-h = t(2) - t(1);
-weights=ones(size(t));
+y_points = velocity(x_points, route).^(-1);
+interval_size = x_points(2) - x_points(1);
+weights=ones(size(x_points));
 weights(1)=1/2;
 weights(end)=1/2;
 
@@ -26,7 +26,7 @@ I = integral(@(s) velocity(s, route).^(-1), 0, x);
 %disp(I);
 
 % Varför transponat?
-T=h*weights*fx';
+T=interval_size*weights*y_points';
 
 end
 

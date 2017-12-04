@@ -10,22 +10,22 @@ function E  = total_consumption_simpson( x, route, n )
 
 load(route);
 
-t = linspace(0, x, n+1);
+x_points = linspace(0, x, n+1);
 
 % S = h/3(f(x_0)+4f(x_1)+2f(x_2)+...+4f(x_n-1)+f(x_n))
-fx = consumption(velocity(t, route));
-h = (t(2) - t(1))/3;
+y_points = consumption(velocity(x_points, route));
+third_of_interval = (x_points(2) - x_points(1))/3;
 
-weights=ones(size(t))*2;
+weights=ones(size(x_points))*2;
 weights(2:2:end) = 4;
 weights(1)=1;
 weights(end)=1;
 
 
-I = integral(@(s) consumption(velocity(s, route)), 0, x);
+matlab_interval = integral(@(s) consumption(velocity(s, route)), 0, x);
 %disp(I);
 
-E=h*weights*fx';
+E=third_of_interval*weights*y_points';
 
 end
 

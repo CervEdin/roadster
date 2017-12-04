@@ -10,19 +10,19 @@ function E = total_consumption_trap(x, route, n)
 
 load(route);
 
-t = linspace(0, x, n+1);
+x_points = linspace(0, x, n+1);
 
 % T = h(1/2f(x_0)+f(x_1)+...+f(x_n-1)+1/2f(x_n))
-fx = consumption(velocity(t, route));
-h = t(2) - t(1);
-weights=ones(size(t));
+y_points = consumption(velocity(x_points, route));
+interval_size = x_points(2) - x_points(1);
+weights=ones(size(x_points));
 weights(1)=1/2;
 weights(end)=1/2;
 
-I = integral(@(s) consumption(velocity(s, route)), 0, x);
+matlab_integral = integral(@(s) consumption(velocity(s, route)), 0, x);
 %disp(I);
 
-E=h*weights*fx';
+E=interval_size*weights*y_points';
 
 end
 
