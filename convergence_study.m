@@ -7,6 +7,8 @@ distance_simpson=zeros(size(n_intervals));
 total_trap=zeros(size(n_intervals));
 total_simpson=zeros(size(n_intervals));
 route = 'speed_elsa';
+
+% Vad står T för?
 T = 60;
 
 for j=1:length(n_intervals)
@@ -27,6 +29,7 @@ error_total_simpson=(total_simpson(2:end)-total_simpson(1:end-1))/15;
 error_distance_simpson=(distance_simpson(2:end)-distance_simpson(1:end-1))/15;
 
 %Kapa h så den blir lika lång som error vektorerna
+% Vad är h? :)
 h=h(2:end);
 
 subplot(2,2,1); plot(h, error_distance_trap,    'o'); xlabel('h'); ylabel('error'); title('Time to distance - Trap');

@@ -13,6 +13,8 @@ load(route);
 t = linspace(0, x, n+1);
 
 % S = h/3(f(x_0)+4f(x_1)+2f(x_2)+...+4f(x_n-1)+f(x_n))
+
+% Varför .^(-1)
 fx = velocity(t, route).^(-1);
 h = (t(2) - t(1))/3;
 
@@ -24,6 +26,7 @@ weights(end)=1;
 I = integral(@(s) velocity(s, route).^(-1), 0, x);
 %disp(I);
 
+% Varför transponat?
 T=h*weights*fx';
 
 end

@@ -1,4 +1,5 @@
 %Konvergensstudien från föreläsning f9
+% Är det här ett exempel Emanuel visade?
 
 a = 0;
 b = 60;

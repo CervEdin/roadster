@@ -13,15 +13,19 @@ load(route);
 t = linspace(0, x, n+1);
 
 % T = h(1/2f(x_0)+f(x_1)+...+f(x_n-1)+1/2f(x_n))
+
+% Varför .^(-1) ?
 fx = velocity(t, route).^(-1);
 h = t(2) - t(1);
 weights=ones(size(t));
 weights(1)=1/2;
 weights(end)=1/2;
 
+% För att verifiera resultat?
 I = integral(@(s) velocity(s, route).^(-1), 0, x);
 %disp(I);
 
+% Varför transponat?
 T=h*weights*fx';
 
 end
