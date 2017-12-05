@@ -14,7 +14,6 @@ x_points = linspace(0, x, n+1);
 
 % S = h/3(f(x_0)+4f(x_1)+2f(x_2)+...+4f(x_n-1)+f(x_n))
 
-% Varför .^(-1)
 y_points = velocity(x_points, route).^(-1);
 third_of_interval = (x_points(2) - x_points(1))/3;
 
@@ -23,10 +22,6 @@ weights(2:2:end) = 4;
 weights(1)=1;
 weights(end)=1;
 
-matlab_integral = integral(@(s) velocity(s, route).^(-1), 0, x);
-%disp(I);
-
-% Varför transponat?
 T=third_of_interval*weights*y_points';
 
 end
