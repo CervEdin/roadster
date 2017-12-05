@@ -15,16 +15,17 @@ for i=1:10
   S2h = time_to_destination_simpson(b, route, n/2);
   fprintf('%6i %10.2e %10.2e %15.2f %15.2f\n', n, Iref-Th, Iref-Sh, (Iref-T2h)/(Iref-Th), (Iref-S2h)/(Iref-Sh))
   ET(i) = abs(Iref-S2h);
-  ES(i) = abs(Iref-Sh);  
+  ES(i) = abs(Iref-Sh); 
+  ER(i) = abs(Sh-S2h)/15;
   h(i) = (b-a)/n;
   n = 2*n;
 end
 
 figure(1);clf
-loglog(h,ET,'o-b',h,ES,'x-r')
+loglog(h,ER,'o-b')%,h,ES,'x-r')
 hold on
 loglog(h,h.^2,'--',h,h.^4,'-.')
-legend('Simspon(2h)','Simpson','h^2','h^4','Location','Best')
+legend('Simpson(2h)','Simpson','h^2','h^4','Location','Best')
 xlabel('h')
 ylabel('Fel')
 set(gca,'FontSize',14)
