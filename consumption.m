@@ -6,7 +6,7 @@ function consumption = consumption(speed)
 %variable containing the estimated consumption
 
 % Validate function input
-assert( min(speed) >= 0 && max(speed) <= 200);
+assert(min(speed) >= 0 && max(speed) <= 200);
 
 % Load data from disk
 load roadster.mat
