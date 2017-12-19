@@ -10,6 +10,8 @@ function T = time_to_destination_simpson(x, route, n)
 
 load(route);
 
+assert( x >= 0 && x <= max(distance_km) );
+
 x_points = linspace(0, x, n+1);
 
 % S = h/3(f(x_0)+4f(x_1)+2f(x_2)+...+4f(x_n-1)+f(x_n))
