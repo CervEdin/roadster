@@ -12,9 +12,10 @@ load(route);
 % börja med att beräkna tiden för hela sträckan T(end)
 max_time = time_to_destination_simpson(max(distance_km), route, 2^16);
 min_time = time_to_destination_simpson(min(distance_km), route, 2^16);
-%börja med att beräkna tiden för hela sträckan T(end)
+% börja med att beräkna tiden för hela sträckan T(end)
 if T > max_time
    x = max(distance_km);
+% Minst tid funkar fortfarande inte vid tex. 0.0001
 elseif T <= min_time
    x = min(distance_km);
 else
