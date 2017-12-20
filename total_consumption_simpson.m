@@ -21,10 +21,6 @@ weights(2:2:end) = 4;
 weights(1)=1;
 weights(end)=1;
 
-
-matlab_integral = integral(@(s) consumption(velocity(s, route)), 0, x);
-disp(matlab_integral);
-
 E=third_of_interval*weights*y_points';
 end
 
