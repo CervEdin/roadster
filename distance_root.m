@@ -30,7 +30,7 @@ else
     % börja med x0 = 1
     x_first_guess = avrg_speed * T;
     
-    % Do once outside loop?
+    % Do once outside loop? Yes, eller en if-sats i while loopen
     x_last_guess = x_first_guess;
     x_new_guess = distance_next_guess(x_last_guess, T, route);
     
