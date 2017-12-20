@@ -22,6 +22,7 @@ else
     %hitta startgissning x0
     %för att hitta startgissning:
     %1. beräkna medelhastigheten V0
+    avrg_speed = mean(speed_kmph);
     %2. X0 = V0*T
     % ATT GÖRA
     % börja med x0 = 1
