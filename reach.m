@@ -11,19 +11,24 @@ elseif C <= 0
    x = 0;
 else
     %startgissningen är medeldistansen
-    X0 = mean(distance_km);
-    tol = 5e-4;
+    x_first_guess = mean(distance_km);
+   
     %lös f(x) = 0 med Newton-Raphson
     f = @(x) total_consumption_simpson(x, route, 2^16) - C;
     fprime = @(x) consumption(velocity(x, route));
-    x_prev = X0;
-    x_curr = x_prev - (f(x_prev)/fprime(x_prev));
+    x__new_guess = x_first_guess;
+    x__last_guess = x__new_guess - (f(x__new_guess)/fprime(x__new_guess));
+    
+    %Vad ska tolerance vara?
+    tolerance = 1;
+    
+    iterations = 1;
 
-    while abs(x_curr-x_prev) > tol
-        x_prev = x_curr;
-        x_curr = x_prev - (f(x_prev)/fprime(x_prev));
+    while iterations < 20 && abs(x_new_guess - x_last_guess) > tolerance
+        x__new_guess = x__last_guess;
+        x__last_guess = x__new_guess - (f(x__new_guess)/fprime(x__new_guess));
     end
-    x = x_prev;
+    x = x__new_guess;
 end
 
 end
