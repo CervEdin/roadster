@@ -4,35 +4,26 @@ function x = reach(C, route)
 
 load(route);
 
-%börja med att beräkna tiden för hela sträckan T(end)
-%if T > T(end)
-%   x = distance_km(end)
-
-%hitta startgissning x0
-%för att hitta startgissning:
-%1. beräkna medelhastigheten V0
-%2. X0 = V0*T
-x_prev = 1;
-x_curr = 100;
-tol = 5 * 10^-4;
-%lös f(x) = 0 med Newton-Raphson
-%använd f o fprim
-%f = @(x) time_to_destination_simpson(x, route, 16) - C;
-%fprime = @(x) 1/velocity(x, route); 
-
-while abs(x_curr-x_prev) > tol
+max_consumption = total_consumption_simpson(max(distance_km), route, 2^16);
+if C > max_consumption
+   x = max_consumption;
+elseif C <= 0
+   x = 0;
+else
+    %startgissningen är medeldistansen
+    X0 = mean(distance_km);
+    tol = 5e-4;
+    %lös f(x) = 0 med Newton-Raphson
+    f = @(x) total_consumption_simpson(x, route, 2^16) - C;
+    fprime = @(x) consumption(velocity(x, route));
+    x_prev = X0;
     x_curr = x_prev - (f(x_prev)/fprime(x_prev));
-    x_prev = x_curr;
-end
-x = x_prev;
+
+    while abs(x_curr-x_prev) > tol
+        x_prev = x_curr;
+        x_curr = x_prev - (f(x_prev)/fprime(x_prev));
+    end
+    x = x_prev;
 end
 
-% Räckvidd: Antag nu att batteriet är laddat till C Wh. Formulera den
-% ickelinjäraekvationvarsrotgerbilensräckvidd.FormulerasedanNewtonsmetod
-% för att lösa ekvationen. Fundera på vad som skulle vara en bra
-% startgissning för att hitta roten. Skriv en matlab-funktion där du
-% implementerar
-% Newtonsmetodinklusivestartgissning.Funktionenskallhafunktionshuvudet
-% function x = reach(C, route) Hur långt skulle Anna och Elsa komma på sina
-% respektive rutter med en batteriladdning på C = 10000 Wh? Tips: Använd
-% funktionerna total_consumption, velocity och consumption
+end
