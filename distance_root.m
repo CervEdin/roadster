@@ -1,9 +1,11 @@
 function x = distance_root( T, route )
 %DISTANCE_ROOT Summary of this function goes here
 %   Detailed explanation goes here
-distance_f = @(x) time_to_destination_simpson(x, route, 2.^16) - T;
-distance_f_der = @(x) 1 ./ velocity(x, route);
-distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
+
+% Ta bort dessa funktionerna och lägg i separat funktion som kollar att nästa gissning inte är negativ %
+% distance_f = @(x) time_to_destination_simpson(x, route, 2.^16) - T;
+% distance_f_der = @(x) 1 ./ velocity(x, route);
+% distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
 
 load(route);
 
@@ -22,25 +24,27 @@ else
     %hitta startgissning x0
     %för att hitta startgissning:
     %1. beräkna medelhastigheten V0
-    avrg_speed = mean(speed_kmph) * T;
+    avrg_speed = mean(speed_kmph);
     %2. X0 = V0*T
     % ATT GÖRA
     % börja med x0 = 1
-    x_first_guess = 1;
+    x_first_guess = avrg_speed * T;
     
     % Do once outside loop?
     x_last_guess = x_first_guess;
-    x_new_guess = distance_next_guess(x_last_guess);
+    x_new_guess = distance_next_guess(x_last_guess, T, route);
     
     % Tolerans 0.5m ger svar exakt till en meters marginal
     tolerance = 5e-4;
     
     %lös f(x) = 0 med Newton-Raphson
     %använd f o fprim
+    iterations = 1;
 
-    while abs(x_new_guess - x_last_guess) > tolerance
+    while iterations < 20 && abs(x_new_guess - x_last_guess) > tolerance
         x_last_guess = x_new_guess;
-        x_new_guess = distance_next_guess(x_last_guess);
+        x_new_guess = distance_next_guess(x_last_guess, T, route);
+        iterations = iterations + 1;
     end
     x = x_last_guess;
 end
