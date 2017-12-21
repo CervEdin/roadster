@@ -8,7 +8,7 @@ route = 'speed_elsa';
 distance = 60;
 
 for j=1:length(n_intervals)
-    simpson(j) = time_to_destination_simpson(distance, route, n_intervals(j));
+    simpson(j) = time_to_destination(distance, route, n_intervals(j));
 end
 h=distance./n_intervals;
 

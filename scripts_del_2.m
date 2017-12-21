@@ -9,11 +9,11 @@ elsa.string = 'speed_elsa';
 
 subplot(2, 2, 1);
 test_graph.x = linspace(0, 0.6);
-test_graph.y = arrayfun( @(x) time_to_destination_simpson(x, anna.string, 2^16), test_graph.x) .* 60;
+test_graph.y = arrayfun( @(x) time_to_destination(x, anna.string, 2^16), test_graph.x) .* 60;
 plot(test_graph.x, test_graph.y);
 hold on
 
-test_graph.y = arrayfun( @(x) time_to_destination_simpson(x, elsa.string, 2^16), test_graph.x) .* 60;
+test_graph.y = arrayfun( @(x) time_to_destination(x, elsa.string, 2^16), test_graph.x) .* 60;
 plot(test_graph.x, test_graph.y);
 title("Time elapsed per kilometer")
 xlabel("Distance (km)")
@@ -32,7 +32,7 @@ plot(test_graph.x, test_graph.y);
 
 subplot(2, 2, 3);
 T = 0.05;
-fx = @(x, T) time_to_destination_simpson(x, anna.string, 2.^16) - T;
+fx = @(x, T) time_to_destination(x, anna.string, 2.^16) - T;
 test_graph.y = arrayfun(@(x) fx(x, T), test_graph.x);
 plot(test_graph.x, test_graph.y)
 hold on

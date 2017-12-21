@@ -2,19 +2,19 @@ function x = distance_root( T, route )
 %DISTANCE_ROOT Summary of this function goes here
 %   Detailed explanation goes here
 
-% Ta bort dessa funktionerna och lägg i separat funktion som kollar att nästa gissning inte är negativ %
-% distance_f = @(x) time_to_destination_simpson(x, route, 2.^16) - T;
+% Ta bort dessa funktionerna och lï¿½gg i separat funktion som kollar att nï¿½sta gissning inte ï¿½r negativ %
+% distance_f = @(x) time_to_destination(x, route, 2.^16) - T;
 % distance_f_der = @(x) 1 ./ velocity(x, route);
 % distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
 
 load(route);
 
-% OBS något skiter sig vid T 0.02 - 0.03 för speed_elsa
+% OBS nï¿½got skiter sig vid T 0.02 - 0.03 fï¿½r speed_elsa
 
-% börja med att beräkna tiden för hela sträckan T(end)
-max_time = time_to_destination_simpson(max(distance_km), route, 2^16);
-min_time = time_to_destination_simpson(min(distance_km), route, 2^16);
-% börja med att beräkna tiden för hela sträckan T(end)
+% bï¿½rja med att berï¿½kna tiden fï¿½r hela strï¿½ckan T(end)
+max_time = time_to_destination(max(distance_km), route, 2^16);
+min_time = time_to_destination(min(distance_km), route, 2^16);
+% bï¿½rja med att berï¿½kna tiden fï¿½r hela strï¿½ckan T(end)
 if T > max_time
    x = max(distance_km);
 % Minst tid funkar fortfarande inte vid tex. 0.0001
@@ -22,12 +22,12 @@ elseif T <= min_time
    x = min(distance_km);
 else
     %hitta startgissning x0
-    %för att hitta startgissning:
-    %1. beräkna medelhastigheten V0
+    %fï¿½r att hitta startgissning:
+    %1. berï¿½kna medelhastigheten V0
     avrg_speed = mean(speed_kmph);
     %2. X0 = V0*T
-    % ATT GÖRA
-    % börja med x0 = 1
+    % ATT Gï¿½RA
+    % bï¿½rja med x0 = 1
     x_first_guess = avrg_speed * T;
     
     % Do once outside loop? Yes, eller en if-sats i while loopen
@@ -37,8 +37,8 @@ else
     % Tolerans 0.5m ger svar exakt till en meters marginal
     tolerance = 5e-4;
     
-    %lös f(x) = 0 med Newton-Raphson
-    %använd f o fprim
+    %lï¿½s f(x) = 0 med Newton-Raphson
+    %anvï¿½nd f o fprim
     iterations = 1;
 
     while iterations < 20 && abs(x_new_guess - x_last_guess) > tolerance
