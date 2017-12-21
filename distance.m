@@ -17,15 +17,12 @@ distance_f_der = @(x) 1 ./ velocity(x, route);
 % Calculating next guess in Newton-Rhapsson
 distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
 
-% Load the data from disk
 load(route);
-
-% Use Newton-Rhapsson to find a root of the non-linear equation 
-% and use that as an estimate for the distance travelled
 
 % First guess is average speed multiplied with time to get distance
 x_last_guess = 0;
 x_next_guess = mean(speed_kmph) * T;
+
 % Prevent guesses outside the interval
 if (x_next_guess > max(distance_km))
     x_next_guess = max(distance_km);
