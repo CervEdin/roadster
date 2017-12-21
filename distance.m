@@ -20,35 +20,32 @@ distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
 % Load the data from disk
 load(route);
 
-% Calculate the time it takes to travel to the end of the route
-max_time = time_to_destination(max(distance_km), route, 2^16);
+% Use Newton-Rhapsson to find a root of the non-linear equation 
+% and use that as an estimate for the distance travelled
 
-% If the time is larger or equal to the maximum time it takes to travel the
-% route, the distance returned is the full route
-if T >= max_time
-    x = max(distance_km);
-    
-% If time is less than or eqaul to zero, the distance travelled is zero
-elseif T <= 0
-    x = 0;
-    
-% Otherwise, use Newton-Rhapsson to find a root of the non-linear
-% equation and use that as an estimate for the distance travelled
-else
-    x_last_guess = -1;
 % First guess is average speed multiplied with time to get distance
-    x_new_guess = mean(speed_kmph) * T;
-    
-% Tolerance of 0.5m gives an answer correct to the nearest meter
-    tolerance = 5e-4;
-    
-    while abs(x_new_guess - x_last_guess) > tolerance
-        x_last_guess = x_new_guess;
-        x_new_guess = distance_next_guess(x_last_guess);
-% Prevent negative guesses        
-        if (x_new_guess < 0) ; x_new_guess = 0; end
-    end
-    x = x_new_guess;
+x_last_guess = 0;
+x_next_guess = mean(speed_kmph) * T;
+% Prevent guesses outside the interval
+if (x_next_guess > max(distance_km))
+    x_next_guess = max(distance_km);
+elseif (x_next_guess < 0)
+    x_next_guess = 0;
 end
+
+% Tolerance of 0.5m gives an answer correct to the nearest meter
+tolerance = 5e-4;
+
+while abs(x_next_guess - x_last_guess) > tolerance
+    x_last_guess = x_next_guess;
+    x_next_guess = distance_next_guess(x_last_guess);
+    % Prevent guesses outside the interval
+    if (x_next_guess > max(distance_km))
+        x_next_guess = max(distance_km);
+    elseif (x_next_guess < 0)
+        x_next_guess = 0;
+    end
+end
+x = x_next_guess;
 
 end
