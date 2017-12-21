@@ -64,10 +64,10 @@ xlabel('Consumption (Wh)')
 ylabel('Distance (km)')
 title('Reach per charge')
 
-%Str�cka, hur l�ngt kommer Anna och Elsa l�ngs sina rutter p� 30 min:
-fprintf('Anna kommer %.2f km in p� 30 min\n', anna.Tdistance);
-fprintf('Elsa kommer %.2f km in p� 30 min\n', elsa.Tdistance);
+%Reach, how far will Anna and Elsa travel in 30 min:
+fprintf('Anna travels %.2f km in 30 min\n', anna.Tdistance);
+fprintf('Elsa travels %.2f km in 30 min\n', elsa.Tdistance);
 
-%Str�cka, hur l�ngt kommer Anna och Elsa l�ngs sina rutter med 10000 Wh:
-fprintf('Anna kommer %.2f km in med en laddning p� 10000 Wh\n', anna.Creach);
-fprintf('Elsa kommer %.2f km in med en laddning p� 10000 Wh\n', elsa.Creach);
+%Reach, how far will Anna and Elsa travel with a 10000 Wh charge:
+fprintf('Anna reaches %.2f km with a 10000 Wh charge\n', anna.Creach);
+fprintf('Elsa reaches %.2f km with a 10000 Wh charge\n', elsa.Creach);
