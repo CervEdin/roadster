@@ -18,20 +18,19 @@ x_last_guess = 0;
 x_next_guess = mean(distance_km);
 
 % Tolerance in km
-tolerance = 0.01;
+tolerance = 5e-4;
 
-iterations = 1;
-
-while iterations < 20 && abs(x_last_guess - x_next_guess) > tolerance
+while abs(x_last_guess - x_next_guess) > tolerance
     x_last_guess = x_next_guess;
     x_next_guess = f_next(x_last_guess);
     
     % Prevent guesses outside the interval
-    if (x_next_guess > max(distance_km)) x_next_guess = max(distance_km); end
-    if (x_next_guess < 0); x_next_guess = 0; end;
-    iterations = iterations + 1;
+    if (x_next_guess > max(distance_km))
+        x_next_guess = max(distance_km);
+    elseif (x_next_guess < 0)
+        x_next_guess = 0;
+    end
 end
 x = x_next_guess;
-% end
 
 end
