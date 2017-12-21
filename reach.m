@@ -8,14 +8,24 @@ function x = reach(C, route)
 %         x = The distance a car can go on a given charge
 
 % Helper functions
+% Problem formulated as f(x) - T = 0
 f = @(x) total_consumption(x, route, 2^16) - C;
+% The derivative of f(x) is 1 / velocity(x)
 fprime = @(x) consumption(velocity(x, route));
+% Calculating next guess in Newton-Rhapsson
 f_next = @(x) x - f(x)/fprime(x);
 
 load(route);
 
+% First guess is the Charge (Wh) * 1/Consumption(average speed)
 x_last_guess = 0;
-x_next_guess = mean(distance_km);
+x_next_guess = C * 1 / consumption(mean(speed_kmph));
+% Prevent guesses outside the interval
+if (x_next_guess > max(distance_km))
+    x_next_guess = max(distance_km);
+elseif (x_next_guess < 0)
+    x_next_guess = 0;
+end
 
 % Tolerance in km
 tolerance = 5e-4;
