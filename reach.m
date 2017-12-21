@@ -13,25 +13,25 @@ fprime = @(x) consumption(velocity(x, route));
 f_next = @(x) x - f(x)/fprime(x);
 
 load(route);
+
+x_last_guess = 0;
+x_next_guess = mean(distance_km);
+
+% Tolerance in km
+tolerance = 0.01;
+
+iterations = 1;
+
+while iterations < 20 && abs(x_last_guess - x_next_guess) > tolerance
+    x_last_guess = x_next_guess;
+    x_next_guess = f_next(x_last_guess);
     
-    x_last_guess = 0;
-    x_next_guess = mean(distance_km);
-    
-    % Tolerance in km
-    tolerance = 0.01;
-    
-    iterations = 1;
-    
-    while iterations < 20 && abs(x_last_guess - x_next_guess) > tolerance
-        x_last_guess = x_next_guess;
-        x_next_guess = f_next(x_last_guess);
-        
-        % Prevent guesses outside the interval
-        if (x_next_guess > max(distance_km)) x_next_guess = max(distance_km); end
-        if (x_next_guess < 0); x_next_guess = 0; end;
-        iterations = iterations + 1;
-    end
-    x = x_next_guess;
+    % Prevent guesses outside the interval
+    if (x_next_guess > max(distance_km)) x_next_guess = max(distance_km); end
+    if (x_next_guess < 0); x_next_guess = 0; end;
+    iterations = iterations + 1;
+end
+x = x_next_guess;
 % end
 
 end
