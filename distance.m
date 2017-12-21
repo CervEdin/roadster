@@ -13,13 +13,12 @@ load(route);
 
 % b�rja med att ber�kna tiden f�r hela str�ckan T(end)
 max_time = time_to_destination(max(distance_km), route, 2^16);
-min_time = time_to_destination(min(distance_km), route, 2^16);
 % b�rja med att ber�kna tiden f�r hela str�ckan T(end)
 if T > max_time
    x = max(distance_km);
-% Minst tid funkar fortfarande inte vid tex. 0.0001
-elseif T <= min_time
-   x = min(distance_km);
+% If time is less than or eqaul to zero, the distance travelled is zero
+elseif T <= 0
+   x = 0;
 else
     %hitta startgissning x0
     %f�r att hitta startgissning:
