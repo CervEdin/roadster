@@ -2,7 +2,7 @@ function consumption = consumption(speed)
 %CONSUMPTION Given a speed (km/h), calculate the consumption of electricity(Wh/km)
 % Input: speed
 %variable containing the speed to evaluate
-% Output: consumption
+% Output: Energy consumption (Wh/km)
 %variable containing the estimated consumption
 
 % Validate function input
