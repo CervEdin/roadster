@@ -11,7 +11,7 @@ assert(min(speed) >= 0 && max(speed) <= 200);
 % Load data from disk
 load roadster.mat
 
-% Compute an estimate of electricity consumption at 'speed' (km/h
+% Compute an estimate of electricity consumption at 'speed' (km/h)
 
 polynomial = spline(speed_kmph, consumption_Whpkm);
 consumption = ppval(polynomial, speed);
