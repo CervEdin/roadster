@@ -67,23 +67,3 @@ elsa.y_speed = velocity(elsa.x_distance, 'speed_elsa');
 % Plot the graph
 subplot(2, 2, 4) ; plot(elsa.x_distance, elsa.y_speed, '-') ; 
 title('Elsas velocity');  xlabel('distance (km)'); ylabel('speed (km/h)');
-
-% Konvergensstudie: För åtminstone en av de två integralerna (1) och (2)
-% skall du nu göra en empirisk undersökning av noggrannhetsordningen för
-% din metod. Räkna ut integrationsfelet för en serie beräkningar där
-% antalet delintervall dubbleras successivt, dvs för en serie
-% n,2n,4n,8n,16n,.... Om du inte känner till det exakta integral värdet kan
-% du jämföra med integralvärdet med halverad steglängd.
-% 
-% Alltså, för beräkningen med n delintervall jämför du med värdet med 2n
-% delintervall, etc. Plotta integrationsfelet som funktion av antalet
-% delintervall n eller steglängd h = (x?0)/n.
-% 
-% Här är det vanligtvis lämpligt att plotta i log-skala, det kan du göra
-% genom att istället för plot användakommandot loglog somger log-skala både
-% på x- och y-axeln. Plotta också hjälplinjer som visar vilken lutning på
-% kurvan som svarar mot olika noggrannhetsordningar. Tex, om du använder en
-% andra ordningens metod plottar du en hjälplinje som visar O(1/n2)- eller
-% O(h2)-beteende. Hitta en linje som stämmer överens med dina resultat.
-% Stämmer den empiriskt bestämda noggrannhetsordningen med teorin för den
-% integrationsmetod du använt? Om inte, varför?
