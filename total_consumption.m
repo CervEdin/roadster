@@ -8,6 +8,10 @@ function E  = total_consumption( x, route, n )
 %     Output:
 %       E: Total energy consumption (Wh)
 
+if( x < 0 || x > max(distance_km) )
+    error("The distance (x) value: " + x + " is out of bounds")
+end
+
 load(route);
 
 x_points = linspace(0, x, n+1);

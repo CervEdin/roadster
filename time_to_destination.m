@@ -8,11 +8,11 @@ function T = time_to_destination(x, route, n)
 %   Output:
 %     T: The time taken (h)
 
-load(route);
-
 if( x < 0 || x > max(distance_km) )
-    error("x value: " + x + " is out of bounds")
+    error("The distance (x) value: " + x + " is out of bounds")
 end
+
+load(route);
 
 x_points = linspace(0, x, n+1);
 
