@@ -1,16 +1,53 @@
-function x = distance(T, route)
-%DISTANCE Summary of this function goes here
+function x = distance( T, route )
+%DISTANCE_ROOT Summary of this function goes here
 %   Detailed explanation goes here
+
+% Ta bort dessa funktionerna och lï¿½gg i separat funktion som kollar att nï¿½sta gissning inte ï¿½r negativ %
+% distance_f = @(x) time_to_destination(x, route, 2.^16) - T;
+% distance_f_der = @(x) 1 ./ velocity(x, route);
+% distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
+
+load(route);
+
+% OBS nï¿½got skiter sig vid T 0.02 - 0.03 fï¿½r speed_elsa
+
+% bï¿½rja med att berï¿½kna tiden fï¿½r hela strï¿½ckan T(end)
+max_time = time_to_destination(max(distance_km), route, 2^16);
+min_time = time_to_destination(min(distance_km), route, 2^16);
+% bï¿½rja med att berï¿½kna tiden fï¿½r hela strï¿½ckan T(end)
+if T > max_time
+   x = max(distance_km);
+% Minst tid funkar fortfarande inte vid tex. 0.0001
+elseif T <= min_time
+   x = min(distance_km);
+else
+    %hitta startgissning x0
+    %fï¿½r att hitta startgissning:
+    %1. berï¿½kna medelhastigheten V0
+    avrg_speed = mean(speed_kmph);
+    %2. X0 = V0*T
+    % ATT Gï¿½RA
+    % bï¿½rja med x0 = 1
+    x_first_guess = avrg_speed * T;
+    
+    % Do once outside loop? Yes, eller en if-sats i while loopen
+    x_last_guess = x_first_guess;
+    x_new_guess = distance_next_guess(x_last_guess, T, route);
+    
+    % Tolerans 0.5m ger svar exakt till en meters marginal
+    tolerance = 5e-4;
+    
+    %lï¿½s f(x) = 0 med Newton-Raphson
+    %anvï¿½nd f o fprim
+    iterations = 1;
+
+    while iterations < 20 && abs(x_new_guess - x_last_guess) > tolerance
+        x_last_guess = x_new_guess;
+        x_new_guess = distance_next_guess(x_last_guess, T, route);
+        iterations = iterations + 1;
+    end
+    x = x_last_guess;
+end
 
 end
 
-% Sträcka: Antag nu att föraren vill veta hur långt längs rutten hon
-% förväntas ommitpåenvisstid. Utgå från ekvationen för ankomsttid och
-% formulera den icke-linjäraekvation vars rot ger förväntad tillryggalagd
-% sträcka efter T timmar. Formulera sedan Newtons metod för att lösa
-% ekvationen. Fundera på vad som skulle vara en bra startgissning för att
-% hitta roten. Skriv en matlab-funktion där du implementerar Newtons metod
-% inklusive startgissning. Funktionen skall ha funktionshuvudet function x
-% = distance(T, route) Hur långt kommer Anna och Elsa längs sina respektive
-% rutter på 30 min? Tips: Använd funktionerna time_to_destination och
-% velocity.

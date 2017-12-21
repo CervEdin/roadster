@@ -22,7 +22,7 @@ elsa.string = 'speed_elsa';
 % title('Time to destination Elsa')
 
 % test_graph.x = linspace(0.05, .5);
-% test_graph.y = arrayfun(@(x) distance_root(x, 'speed_anna'), test_graph.x);
+% test_graph.y = arrayfun(@(x) distance(x, 'speed_anna'), test_graph.x);
 % plot(test_graph.x, test_graph.y)
 % xlabel('Time (h)')
 % ylabel('Distance (km)')
