@@ -35,11 +35,9 @@ elseif T <= 0
 % Otherwise, use Newton-Rhapsson to find a root of the non-linear
 % equation and use that as an estimate for the distance travelled
 else
-% Calculate the average speed for the first guess
-    avrg_speed = mean(speed_kmph);
-% First guess is average speed multiplied with time to get distance
     x_last_guess = -1;
-    x_new_guess = avrg_speed * T;
+% First guess is average speed multiplied with time to get distance
+    x_new_guess = mean(speed_kmph) * T;
     
 % Tolerance of 0.5m gives an answer correct to the nearest meter
     tolerance = 5e-4;
@@ -57,4 +55,3 @@ else
 end
 
 end
-
