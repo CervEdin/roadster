@@ -10,20 +10,20 @@ function x = reach(C, route)
 
 load(route);
 
-max_consumption = total_consumption_simpson(max(distance_km), route, 2^16);
+max_consumption = total_consumption(max(distance_km), route, 2^16);
 if C > max_consumption
    x = max(distance_km);
 elseif C <= 0
    x = 0;
 else
-    %startgissningen är medeldistansen
+    %startgissningen ï¿½r medeldistansen
     x_first_guess = mean(distance_km);
    
     x_last_guess = x_first_guess;
     x_next_guess = reach_next_guess(x_last_guess, C, route);
     
     %Vad ska tolerance vara?
-    % Hmm.. En Wh låter rimligt?
+    % Hmm.. En Wh lï¿½ter rimligt?
     tolerance = 1;
     
     iterations = 1;

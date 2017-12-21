@@ -1,4 +1,4 @@
-function E  = total_consumption_simpson( x, route, n )
+function E  = total_consumption( x, route, n )
 % Approximates the total energy consumption for a given distance along
 % a certain route using the functions 'velocity' and 'consumption'
 %     Input:

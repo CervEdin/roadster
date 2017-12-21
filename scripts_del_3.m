@@ -29,10 +29,10 @@ elsa.string = 'speed_elsa';
 % title('Elsa distance over time')
 
 test_graph.x = linspace(0, max(anna.distance_km));
-test_graph.y = arrayfun(@(x) total_consumption_simpson(x, anna.string, 2^16), test_graph.x);
+test_graph.y = arrayfun(@(x) total_consumption(x, anna.string, 2^16), test_graph.x);
 plot(test_graph.x, test_graph.y);
 hold on
 test_graph.x = linspace(0, max(elsa.distance_km));
-test_graph.y = arrayfun(@(x) total_consumption_simpson(x, elsa.string, 2^16), test_graph.x);
+test_graph.y = arrayfun(@(x) total_consumption(x, elsa.string, 2^16), test_graph.x);
 plot(test_graph.x, test_graph.y);
 %test_graph.x = linspace(0, 
