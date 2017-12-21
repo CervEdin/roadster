@@ -13,39 +13,33 @@ load(route);
 
 % b�rja med att ber�kna tiden f�r hela str�ckan T(end)
 max_time = time_to_destination(max(distance_km), route, 2^16);
-% b�rja med att ber�kna tiden f�r hela str�ckan T(end)
-if T > max_time
+
+% If the time is larger or equal to the maximum time it takes to travel the
+% route, the distance returned is the full route
+if T >= max_time
    x = max(distance_km);
+   
 % If time is less than or eqaul to zero, the distance travelled is zero
 elseif T <= 0
    x = 0;
 else
-    %hitta startgissning x0
-    %f�r att hitta startgissning:
-    %1. ber�kna medelhastigheten V0
+    % Calculate the average speed for the first guess
     avrg_speed = mean(speed_kmph);
-    %2. X0 = V0*T
-    % ATT G�RA
-    % b�rja med x0 = 1
-    x_first_guess = avrg_speed * T;
+    % First guess is average speed multiplied with time to get distance
+    x_last_guess = -1;
+    x_new_guess = avrg_speed * T;
     
-    % Do once outside loop? Yes, eller en if-sats i while loopen
-    x_last_guess = x_first_guess;
-    x_new_guess = distance_next_guess(x_last_guess, T, route);
-    
-    % Tolerans 0.5m ger svar exakt till en meters marginal
+    % Tolerance of 0.5m gives an answer correct to the nearest meter
     tolerance = 5e-4;
     
-    %l�s f(x) = 0 med Newton-Raphson
-    %anv�nd f o fprim
+    % Keep track of iterations to prevent infinite loops
     iterations = 1;
-
     while iterations < 20 && abs(x_new_guess - x_last_guess) > tolerance
         x_last_guess = x_new_guess;
         x_new_guess = distance_next_guess(x_last_guess, T, route);
         iterations = iterations + 1;
     end
-    x = x_last_guess;
+    x = x_new_guess;
 end
 
 end
