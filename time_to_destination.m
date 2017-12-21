@@ -9,7 +9,9 @@ function T = time_to_destination(x, route, n)
 %     T: The time taken (h)
 
 if( x < 0 || x > max(distance_km) )
-    error("The distance (x) value: " + x + " is out of bounds")
+   error("The distance (x) value: " + x + " is out of bounds")
+elseif (mod(n) ~= 0)
+    error("The number of intervals (n) needs to be even")
 end
 
 load(route);
