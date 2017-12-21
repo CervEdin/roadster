@@ -2,37 +2,36 @@ function x = reach(C, route)
 %REACH Summary of this function goes here
 %   Detailed explanation goes here
 %     input:
-%         C = Wh
+%         C = Charge in Wh
 %         route = string pointing to the route taken
 %     output:
 %         x = The distance a car can go on a given charge
-        
+
+% Helper functions
+f = @(x) total_consumption(x, route, 2^16) - C;
+fprime = @(x) consumption(velocity(x, route));
+f_next = @(x) x - f(x)/fprime(x);
 
 load(route);
-
-max_consumption = total_consumption(max(distance_km), route, 2^16);
-if C > max_consumption
-   x = max(distance_km);
-elseif C <= 0
-   x = 0;
-else
-    %startgissningen �r medeldistansen
-    x_first_guess = mean(distance_km);
-   
-    x_last_guess = x_first_guess;
-    x_next_guess = reach_next_guess(x_last_guess, C, route);
     
-    %Vad ska tolerance vara?
-    % Hmm.. En Wh l�ter rimligt?
-    tolerance = 1;
+    x_last_guess = 0;
+    x_next_guess = mean(distance_km);
+    
+    % Tolerance in km
+    tolerance = 0.01;
     
     iterations = 1;
-
+    
     while iterations < 20 && abs(x_last_guess - x_next_guess) > tolerance
         x_last_guess = x_next_guess;
-    x_next_guess = reach_next_guess(x_last_guess, C, route);
+        x_next_guess = f_next(x_last_guess);
+        
+        % Prevent guesses outside the interval
+        if (x_next_guess > max(distance_km)) x_next_guess = max(distance_km); end
+        if (x_next_guess < 0); x_next_guess = 0; end;
+        iterations = iterations + 1;
     end
-    x = x_last_guess;
-end
+    x = x_next_guess;
+% end
 
 end
