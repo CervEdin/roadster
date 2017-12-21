@@ -10,7 +10,9 @@ function T = time_to_destination(x, route, n)
 
 load(route);
 
-assert( x >= 0 && x <= max(distance_km) );
+if( x < 0 || x > max(distance_km) )
+    error("x value: " + x + " is out of bounds")
+end
 
 x_points = linspace(0, x, n+1);
 
