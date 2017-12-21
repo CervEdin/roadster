@@ -42,14 +42,11 @@ else
 % Tolerance of 0.5m gives an answer correct to the nearest meter
     tolerance = 5e-4;
     
-% Keep track of iterations to prevent infinite loops
-    iterations = 1;
-    while iterations < 20 && abs(x_new_guess - x_last_guess) > tolerance
+    while abs(x_new_guess - x_last_guess) > tolerance
         x_last_guess = x_new_guess;
         x_new_guess = distance_next_guess(x_last_guess);
 % Prevent negative guesses        
         if (x_new_guess < 0) ; x_new_guess = 0; end
-        iterations = iterations + 1;
     end
     x = x_new_guess;
 end
