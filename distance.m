@@ -3,9 +3,9 @@ function x = distance( T, route )
 %   Detailed explanation goes here
 
 % Ta bort dessa funktionerna och l�gg i separat funktion som kollar att n�sta gissning inte �r negativ %
-% distance_f = @(x) time_to_destination(x, route, 2.^16) - T;
-% distance_f_der = @(x) 1 ./ velocity(x, route);
-% distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
+ distance_f = @(x) time_to_destination(x, route, 2.^16) - T;
+ distance_f_der = @(x) 1 ./ velocity(x, route);
+ distance_next_guess = @(x) x - (distance_f(x) ./ distance_f_der(x));
 
 load(route);
 
@@ -36,7 +36,8 @@ else
     iterations = 1;
     while iterations < 20 && abs(x_new_guess - x_last_guess) > tolerance
         x_last_guess = x_new_guess;
-        x_new_guess = distance_next_guess(x_last_guess, T, route);
+        x_new_guess = distance_next_guess(x_last_guess);
+        if (x_new_guess < 0) ; x_new_guess = 0; end
         iterations = iterations + 1;
     end
     x = x_new_guess;
